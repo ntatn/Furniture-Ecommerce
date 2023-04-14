@@ -4,6 +4,7 @@ import crypto from 'crypto'
 import keyTokenService from './keyToken.js'
 import { createTokenPair } from '../auth/authUtils.js'
 import { getIntoData } from '../utils/index.js'
+import { BadRequestError, ConflictRequestError } from '../middlewares/error.response.js'
 const Role = {
     CUSTOMER: '0002',
     ADMIN: '0001'
@@ -14,10 +15,7 @@ class AccessService {
             // Check email exists?
             const hodelUser = await user.findOne({ email }).lean()
             if(hodelUser){
-                return {
-                    code: 'xxxx',
-                    message: 'User already exists'
-                }
+                throw new BadRequestError
             }
             const passwordHash = await bcrypt.hash(password, 10)
             const newUser = await user.create({
