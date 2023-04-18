@@ -14,11 +14,11 @@ class SuccessResponse {
     
     constructor({ message, statusCode = StatusCode.OK, reasonStatusCode = ReasonStatusCode.OK, metadata = {}}){
         this.message = !message ? reasonStatusCode : message
-        this.statusCode = statusCode
+        this.status = statusCode
         this.metadata = metadata
     }
 
-    send(res, headers = {}) {
+    send(res) {
         return res.status( this.status ).json(this)
     }
 }

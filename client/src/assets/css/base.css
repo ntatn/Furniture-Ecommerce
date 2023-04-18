@@ -1,0 +1,98 @@
+:root{
+  --woocommerce: #a46497;
+  --green-color: #7ad03a;
+  --red-color: #a00;
+  --orange-color: #ffba00;
+  --blue-color: #2ea2cc;
+  --primary-color: #a46497;
+  --primary-text-color: white;
+  --secondary-color: #ebe9eb;
+  --secondary-text-color: #515151;
+  --highlight-color: #77a464;
+  --highligh-text-color: white;
+  --subtext-color: #767676;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 62.5%;
+    line-height:1.6rem;
+    box-sizing: border-box;
+  }
+
+  ol, ul {
+    list-style: none;
+  }
+
+  @keyframes un-img-animation{
+    from{
+        transform: scale(1.1, 1.1);
+    }
+    to{
+        transform: scale(1, 1);
+    }
+}
+@keyframes img-animation{
+    from{
+        transform: scale(1, 1);
+    }
+    to{
+        transform: scale(1.1, 1.1);
+    }
+}
+@keyframes slide-up{
+    from{
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(-20%);
+    }
+}
+@keyframes slide-down{
+    from{
+        transform: translateY(-20%);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+@keyframes fade-in{
+    from{
+        opacity: 0.7;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes animationDescription{
+    from{
+        transform: translateY(-50px);
+        
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+@keyframes animationTitle{
+    from{
+        transform: translateX(-100%);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+@keyframes animationBtn{
+    from{
+        opacity: 0;
+        transform: perspective(200px) translateZ(-60px);
+    }
+    to{
+        opacity: 1;
+        transform: perspective(200px) translateZ(0);
+    }
+}
