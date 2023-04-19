@@ -27,10 +27,10 @@
                     <div class="header__nav">
                         <ul class="header__nav-items">
                             <li class="header__nav-lists">
-                                <a href="" class="header__nav-link ">HOME</a>                 
+                                <router-link  class="header__nav-link" to="/">HOME</router-link>                 
                             </li>
                             <li class="header__nav-lists">
-                                <a href="" class="header__nav-link">SHOP</a>
+                                <router-link class="header__nav-link" to="shop">SHOP</router-link>
                             </li>        
                         </ul>
                     </div>
