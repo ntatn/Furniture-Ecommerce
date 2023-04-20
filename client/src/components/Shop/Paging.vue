@@ -125,11 +125,11 @@
                                 </div>
                                 <div class="grid">
                                     <div class="row no-gutters products__rows" v-if="!message">
-                                        <ProductItem v-bind:product="product" v-for="product in products" :key="product.id">
+                                        <ProductItem  v-for="product in products" :key="product.id">
                                         </ProductItem>
                                     </div>
                                     <div class="row no-gutters products__rows" v-if="message">
-                                        <ProductItem v-bind:product="product" v-for="product in productFilters" :key="product.id">
+                                        <ProductItem v-for="product in productFilters" :key="product.id">
                                         </ProductItem>
                                     </div>
                                 </div>

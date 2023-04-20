@@ -27,7 +27,7 @@
                     <div class="header__nav">
                         <ul class="header__nav-items">
                             <li class="header__nav-lists">
-                                <router-link  class="header__nav-link" to="/">HOME</router-link>                 
+                                <a href="/" class="header__nav-link" >HOME</a>                 
                             </li>
                             <li class="header__nav-lists">
                                 <router-link class="header__nav-link" to="shop">SHOP</router-link>

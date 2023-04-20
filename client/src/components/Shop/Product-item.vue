@@ -3,11 +3,11 @@
         <div class="products-details ">
         <div class="products-thumb">
           <div class="products-wrapper__img">
-            <a href="" class="products-details-link">      
+            <router-link :to = "{name: 'productDetails', params: {id : product.id}}" class="products-details-link">      
               <img :src="product.image" alt="" class="products-img">
               <input type="hidden" name="hidden_img" value="" />  
               <img :src="product.image" alt="" class="products-img hidden">
-            </a>
+            </router-link>
           </div>                 
           <div class="products-button">
             <a href="" class="checkcartemty products-link add">
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="products-description">
-          <a class="products-name">{{product.title}}</a>
+          <a  class="products-name">{{product.title}}</a>
           <span class="product-quantity-shop new">${{product.price}}</span>
         </div>
       </div>
