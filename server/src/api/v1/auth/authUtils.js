@@ -2,6 +2,7 @@ import JWT from 'jsonwebtoken'
 import { asyncHandler } from '../helpers/asyncHandler.js'
 import { AuthFailureError, NotFoundError } from '../middlewares/error.response.js'
 import keyTokenService  from '../services/keyToken.js'
+import { verify } from 'crypto'
 const HEADER = {
     CLIENT_ID: 'x-client-id',
     AUTHORIZATION: 'authorization'
@@ -60,4 +61,8 @@ const authentication = asyncHandler(async(req, res, next) => {
     }
 })
 
-export {createTokenPair, authentication}
+const verifyJWT = async (token, keySecret) =>{
+    return await JWT.verify(token, keySecret)
+}
+
+export {createTokenPair, authentication, verifyJWT}

@@ -5,7 +5,6 @@ import store from '../store/auth.js'
 const ifNotAuthorized = (to, from, next) => {
   if(!store.getters.isLoggedIn){
     next()
-    console.log(!store.getters.isLoggedIn)
     return
   }
   next("/")

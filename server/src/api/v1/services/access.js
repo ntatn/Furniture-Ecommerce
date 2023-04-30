@@ -2,16 +2,49 @@ import user from '../models/user.js'
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import keyTokenService from './keyToken.js'
-import { createTokenPair } from '../auth/authUtils.js'
+import { createTokenPair, verifyJWT } from '../auth/authUtils.js'
 import { getIntoData } from '../utils/index.js'
 import { OK, CREATED } from '../middlewares/success.response.js'
-import { BadRequestError, ConflictRequestError, AuthFailureError } from '../middlewares/error.response.js'
+import { BadRequestError, ForbiddenError, AuthFailureError } from '../middlewares/error.response.js'
 import { findByEmail } from './user.service.js'
 const Role = {
     CUSTOMER: '0002',
     ADMIN: '0001'
 }
 class AccessService {
+
+    static handleRefreshToken = async (refreshToken) => {
+        const foundToken = await keyTokenService.findByRefreshTokenUsed(refreshToken)
+        if(foundToken){
+
+            const {userId, email} = await verifyJWT(refreshToken, foundToken.privateKey)
+            await keyTokenService.deleteKeyById(userId)
+            throw new ForbiddenError('Something wrong happened !! Please relogin')
+        }
+
+        const holderToken = await keyTokenService.findByRefreshToken(refreshToken)
+        if(!holderToken) throw new AuthFailureError('User not registered 1')
+        const {userId, email} = await verifyJWT(refreshToken, holderToken.privateKey)
+        const foundUser = await findByEmail(email)
+        if(!foundUser) throw new AuthFailureError('User not registered 2')
+        
+        const tokens = await createTokenPair({userId, email}, holderToken.publicKey, holderToken.privateKey)
+
+        await holderToken.update({
+            $set: {
+                refreshToken: tokens.refreshToken
+            },
+            $addToSet: {
+                refreshTokenUsed: refreshToken
+            }
+        })
+        return {
+            user: {userId, email},
+            tokens
+        }
+    }
+
+
     static logout = async (keyStore) => {
         const delKey = await keyTokenService.removeKeyById(keyStore._id)
         console.log(delKey)
