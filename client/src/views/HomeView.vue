@@ -21,6 +21,8 @@ export default {
   name: 'HomeView',
   components: {
     Background, TopCategories, News, Brand, TheHeader, TheFooter
-  }
+  },
+  
 }
 </script>
+

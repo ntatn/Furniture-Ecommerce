@@ -30,7 +30,7 @@
                                 <a href="/" class="header__nav-link" >HOME</a>                 
                             </li>
                             <li class="header__nav-lists">
-                                <router-link class="header__nav-link" to="shop">SHOP</router-link>
+                                <router-link class="header__nav-link" :to="{name: 'shop'}">SHOP</router-link>
                             </li>        
                         </ul>
                     </div>
@@ -43,9 +43,14 @@
                             </a>
                         </li>
                         <li class="headerr__active-list header__navbar-user">
-                            <a href="#" class="headerr__active-link">
-                                <i class=" header__active-icon user-login far fa-user"></i>
-                            </a> 
+                            <router-link :to="{name: 'login'}" class="headerr__active-link">
+                                <i class=" header__active-icon user-login fas fa-user-alt"></i>
+                            </router-link> 
+                        </li>
+                        <li class="headerr__active-list">
+                            <router-link :to="{name: 'logout'}" class="headerr__active-link">
+                                <i class="header__active-icon fas fa-user-times"></i>
+                            </router-link> 
                         </li>
                         <li class="headerr__active-list">
                             <a href="#" class="headerr__active-link">

@@ -35,7 +35,7 @@
 
 export default {
     name: 'product-item',
-    props: ['product'],
+    props: ['product']
 
 }
 </script>

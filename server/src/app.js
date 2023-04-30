@@ -4,11 +4,15 @@ import helmet from 'helmet'
 import compression from 'compression'
 import connectdb from './config/connectDB.js'
 import router from './api/v1/routes/index.js'
+import cors from "cors"
 const app = express()
 
 // init middlewares
 app.use(morgan('dev'))
 app.use(helmet())
+app.use(cors({
+    origin: '*'
+}))
 app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({
