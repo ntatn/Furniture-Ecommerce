@@ -4,7 +4,7 @@ import crypto from 'crypto'
 import keyTokenService from './keyToken.js'
 import { createTokenPair, verifyJWT } from '../auth/authUtils.js'
 import { getIntoData } from '../utils/index.js'
-import { OK, CREATED } from '../middlewares/success.response.js'
+import { CREATED } from '../middlewares/success.response.js'
 import { BadRequestError, ForbiddenError, AuthFailureError } from '../middlewares/error.response.js'
 import { findByEmail } from './user.service.js'
 const Role = {

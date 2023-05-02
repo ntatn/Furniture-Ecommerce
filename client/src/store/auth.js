@@ -1,20 +1,24 @@
 
 import Vuex from 'vuex';
-import { axiosbase, axioslogout } from '@/interceptors/axios-base.js';
+import { axiosbase, axiosdefault } from '@/interceptors/axios-base.js';
 
 
 export default new Vuex.Store({
     state: {
         accessToken: localStorage.getItem('access_token'),
+        isAdmin: localStorage.getItem('role'),
         isLoggedIn: false,
     },
     getters: {
-        isLoggedIn: (state) => !!state.accessToken
+        isLoggedIn: (state) => !!state.accessToken,
+        isAdmin: (state) => state.isAdmin
     },
     mutations: {
-        updateLocalStorage (state, {access, userId}) {
+        updateLocalStorage (state, {access, userId, role}) {
             localStorage.setItem('access_token', access)
             localStorage.setItem('user_id', userId)
+            localStorage.setItem('role', role)
+            state.isAdmin = role
             state.accessToken = access
         },
         destroyToken(state) {
@@ -23,7 +27,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        registerUser (context, data) {
+        registerUser (data) {
             return new Promise ((resolve, reject) =>{
                 axiosbase.post('/user/signup', {
                     name: data.name,
@@ -44,7 +48,7 @@ export default new Vuex.Store({
                     password: data.password
                 })
                 .then(response => {
-                    context.commit('updateLocalStorage', {access: response.data.metadata.token.accessToken, userId: response.data.metadata.user._id})
+                    context.commit('updateLocalStorage', {access: response.data.metadata.token.accessToken, userId: response.data.metadata.user._id, role: response.data.metadata.user.roles})
                     resolve()
                 })
                 .catch(err =>{
@@ -55,7 +59,7 @@ export default new Vuex.Store({
         logoutUser(context){
             if(context.getters.isLoggedIn){
                 return new Promise((resolve, reject) =>{
-                    axioslogout.post('/user/logout')
+                    axiosdefault.post('/user/logout')
                     .then(response => {
                         localStorage.removeItem('access_token')
                         localStorage.removeItem('user_id')

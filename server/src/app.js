@@ -14,8 +14,9 @@ app.use(cors({
     origin: '*'
 }))
 app.use(compression())
-app.use(express.json())
+app.use(express.json({limit: "50mb"}))
 app.use(express.urlencoded({
+    limit: "50mb",
     extended: true
 }))
 app.use('/', router)
@@ -25,7 +26,7 @@ app.use('/', router)
 // handle errors
 
 app.use((req, res, next) => {
-    const error = new Error('Not Found')
+    const error = new Error('Not Found 1')
     error.status = 404
     next(error)
 })

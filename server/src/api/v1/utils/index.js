@@ -4,4 +4,8 @@ const getIntoData = ({fileds = [], object = {}}) => {
     return _.pick(object, fileds)
 }
 
-export {getIntoData}
+const getSelectData = (select = []) =>{
+    return Object.fromEntries(select.map(el => [el, 1]))
+}
+
+export {getIntoData, getSelectData}

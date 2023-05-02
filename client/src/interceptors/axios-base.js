@@ -10,7 +10,7 @@ const axiosbase = axios.create({
         contentType: 'application/json'
     }
 })
-const axioslogout = axios.create({
+const axiosdefault = axios.create({
     baseURL: APIUrl,
     headers: {
         'x-client-id': localStorage.getItem('user_id'),
@@ -20,4 +20,4 @@ const axioslogout = axios.create({
 
 
 
-export {axiosbase, axioslogout}
+export {axiosbase, axiosdefault}

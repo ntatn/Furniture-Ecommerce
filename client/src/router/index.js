@@ -10,6 +10,14 @@ const ifNotAuthorized = (to, from, next) => {
   next("/")
 }
 
+const isAdmin = (to, from, next) => {
+  if(store.getters.isLoggedIn && store.getters.isAdmin === '0001'){
+    next()
+    return
+  }
+  next("/")
+}
+
 const ifAuthorized = (to, from, next) => {
   if(store.getters.isLoggedIn){
     next()
@@ -54,6 +62,18 @@ const routes = [
     path: '/register',
     name: 'register',
     component: () => import(/* webpackChunkName: "login" */ '../views/RegisterView.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import(/* webpackChunkName: "admin" */ '../views/AdminView.vue'),
+    beforeEnter: isAdmin
+  },
+  {
+    path: '/admin/product',
+    name: 'products',
+    component: () => import(/* webpackChunkName: "admin" */ '../views/ProductView.vue'),
+    beforeEnter: isAdmin
   },
   {
     path: '/product/:id',
