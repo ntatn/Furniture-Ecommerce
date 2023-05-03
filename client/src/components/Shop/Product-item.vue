@@ -3,10 +3,10 @@
         <div class="products-details ">
         <div class="products-thumb">
           <div class="products-wrapper__img">
-            <router-link :to = "{name: 'productDetails', params: {id : product.id}}" class="products-details-link">      
-              <img :src="product.image" alt="" class="products-img">
+            <router-link :to = "{name: 'productDetails', params: {id : product._id}}" class="products-details-link">      
+              <img :src="product.thumb" alt="" class="products-img">
               <input type="hidden" name="hidden_img" value="" />  
-              <img :src="product.image" alt="" class="products-img hidden">
+              <img :src="product.thumb" alt="" class="products-img hidden">
             </router-link>
           </div>                 
           <div class="products-button">

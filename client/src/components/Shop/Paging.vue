@@ -117,19 +117,19 @@
                                         <div class="products-display-sort">
                                             <input type="checkbox" hidden class="display__check" id="display__check">
                                             <label for="display__check">
-                                                <span class="display__sort">Default Sorting
-                                                </span>
+                                                <a class="display__sort">Default Sorting
+                                                </a>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="row no-gutters products__rows" v-if="!message">
-                                        <ProductItem v-bind:product="product" v-for="product in products" :key="product.id">
+                                        <ProductItem v-bind:product="product" v-for="product in products" :key="product._id">
                                         </ProductItem>
                                     </div>
                                     <div class="row no-gutters products__rows" v-if="message">
-                                        <ProductItem v-bind:product="product" v-for="product in productFilters" :key="product.id">
+                                        <ProductItem v-bind:product="product" v-for="product in productFilters" :key="product._id">
                                         </ProductItem>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
 
 <script>
 import ProductItem from '@/components/Shop/Product-item.vue'
-import axios from 'axios'
+import { axiosdefault } from '@/interceptors/axios-base.js'
 export default {
     name: 'ShopPaging',
     components: {
@@ -155,17 +155,17 @@ export default {
             categories: [
                 {
                     id: 1,
-                    cate_name: 'electronics',
+                    cate_name: 'Living Room',
                     cate_image: 'cate1.png'
                 },
                 {
                     id: 2,
-                    cate_name: "men's clothing",
+                    cate_name: "Bedroom",
                     cate_image: 'cate3.jpg'
                 },
                 {
                     id: 3,
-                    cate_name: 'Dining Chairs',
+                    cate_name: 'Kitchen & Dining',
                     cate_image: 'cate5.jpg'
                 },
                 {
@@ -185,9 +185,9 @@ export default {
         }
     },
     mounted() {
-        axios.get("https://fakestoreapi.com/products")
+        axiosdefault.get("/product")
             .then(response => {
-                this.products = response.data;
+                this.products = response.data.metadata;
                 console.log(this.products);
 
             })
@@ -202,9 +202,9 @@ export default {
     },
     methods: {
         loadAndFilterData(cateName) {
-            axios.get("https://fakestoreapi.com/products")
+            axiosdefault.get("/product")
             .then(response => {
-                this.productFilters = response.data.filter((product) => {
+                this.productFilters = response.data.metadata.filter((product) => {
                     return product.category === cateName
                 })
                 
@@ -213,6 +213,7 @@ export default {
                 console.log(e.message)
             })
         }
+        
     }
 }
 </script>

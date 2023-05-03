@@ -10,7 +10,7 @@
                                 <div class="col l-7">
                                     <div class="product-details-image">
                                         <div class="product-image-big">
-                                            <img :src="product.image" alt="">
+                                            <img :src="product.thumb" alt="">
                                             <input type="hidden" name="hidden_img" value="" />
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import axios from 'axios'
+import { axiosdefault } from '@/interceptors/axios-base.js'
 export default {
     components: {
         Header, Footer
@@ -142,10 +142,10 @@ export default {
         }
     },
     mounted() {
-        axios.get("https://fakestoreapi.com/products")
-            .then(response => {
-                const product_id = this.$route.params.id
-                return this.product = response.data.find((product) => product.id == product_id)
+        const product_id = this.$route.params.id
+        axiosdefault.get(`/product/${product_id}`)
+            .then(response => {        
+                return this.product = response.data.metadata
             })
             .catch(e => {
                 console.log(e.message)

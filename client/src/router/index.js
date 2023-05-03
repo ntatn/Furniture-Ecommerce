@@ -76,6 +76,13 @@ const routes = [
     beforeEnter: isAdmin
   },
   {
+    path: '/admin/product/edit/:id',
+    name: 'edit',
+    props: true,
+    component: () => import(/* webpackChunkName: "admin" */ '../views/EditProductView.vue'),
+    beforeEnter: isAdmin
+  },
+  {
     path: '/product/:id',
     name: 'productDetails',
     props: true,
